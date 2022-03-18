@@ -20,6 +20,8 @@ if ttl_TCP == 64:
 if ttl_TCP == 64:
     print(Fore.GREEN + "L'utilisateur utilise Mac")
 
+scapy.as_resolver
+
 '''
 # détection par ports
 ports = [135] # windows
