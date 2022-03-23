@@ -37,7 +37,7 @@ def scan():
             print(win)
             print(Fore.GREEN + f"utlisateur détecté sur le port : {port}")
             sock.close()
-        
+        # https://www.google.com/search?q=python+recherche+mot+dans+liste&biw=1600&bih=785&ei=Sys7YsfDOoeca7q2qogP&ved=0ahUKEwiHlZ_Ltdz2AhUHzhoKHTqbCvEQ4dUDCA4&uact=5&oq=python+recherche+mot+dans+liste&gs_lcp=Cgdnd3Mtd2l6EAMyCAghEBYQHRAeMggIIRAWEB0QHjoHCAAQRxCwAzoFCAAQgAQ6BggAEBYQHjoICAAQFhAKEB5KBAhBGABKBAhGGABQuAhYhRdg7xtoAXABeACAAWyIAYkEkgEDNS4xmAEAoAEByAEIwAEB&sclient=gws-wiz
         '''
         # vérification pour mac
         if result == 0:
