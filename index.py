@@ -18,48 +18,62 @@ def scan():
         affichage = sc.gethostbyaddr(submit)
         print(f"démarrage du scan d'officience : {affichage}")
         sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
-        result = sock.connect_ex((submit, port))
+        # result = sock.connect_ex((submit, port))
         sc.setdefaulttimeout(0)
-        print(affichage)
         windows_OS = ["LAPTOP-"]
-        mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-"]
+        mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-", "SLPAR-"]
         android_OS = ["Android.", "Android-"]
         linux_OS = ["LINUX"]
 
         # partie vérification windows
         for x in windows_OS[0::]:
-            if x in affichage[0]:
-                print(win)
+            try:
+                sock.connect_ex((submit, port))
+                if x in affichage[0]:
+                    print(win)
+                    sock.close()
+            except sc.herror:
+                print("error")
+            finally:
                 sock.close()
-
-            elif result == 1:
-                sock.close()
+                exit()
         
         # vérification pour mac
         for z in mac_OS[0::]:
-            if z in affichage[0]:
-                print(mac)
+            try:
+                sock.connect_ex((submit, port))
+                if z in affichage[0]:
+                    print(mac)
+                    sock.close()
+            except sc.herror:
+                print("error")
+            finally:
                 sock.close()
-
-            elif result == 1:
-                sock.close()
+                exit()
 
         # vérification pour linux
         for s in linux_OS[0::]:
-            if s in affichage[0]:
-                print(linux)
+            try:
+                sock.connect_ex((submit, port))
+                if s in affichage[0]:
+                    print(linux)
+                    sock.close()
+            except sc.herror:
+                print("erreur")
+            finally:
                 sock.close()
-            
-            elif result == 1:
-                sock.close()
+                exit()
 
         # vérification pour android
         for l in android_OS[0::]:
-            if l in affichage[0]:
-                print(android)
-                sock.close()
-            
-            elif result == 1:
+            try:
+                sock.connect_ex((submit, port))
+                if l in affichage[0]:
+                    print(android)
+                    sock.close()
+            except sc.herror:
+                print("error")
+            finally:
                 sock.close()
                 exit()
 
