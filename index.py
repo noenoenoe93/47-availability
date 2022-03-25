@@ -3,6 +3,8 @@ import threading
 from colorama import Fore
 from scapy.all import *
 from scapy.layers.inet import *
+import ipaddress
+
 
 # variables d'affichage OS
 win = Fore.GREEN + "l'utilisateur utlise Windows"
@@ -13,74 +15,52 @@ android = Fore.GREEN + "l'utilisateur utilise android"
 # partie scan
 def scan():
         # partie détection 1
-        port = 1
-        submit = ("10.0.0.8")
-        affichage = sc.gethostbyaddr(submit)
-        print(f"démarrage du scan d'officience : {affichage}")
-        sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
-        # result = sock.connect_ex((submit, port))
-        sc.setdefaulttimeout(0)
-        windows_OS = ["LAPTOP-"]
-        mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-", "SLPAR-"]
-        android_OS = ["Android.", "Android-"]
-        linux_OS = ["LINUX"]
+        try:
+            port = 135
+            ipaddress.ip_network("10.0.0.1/24")
+            submit = ("10.0.0.69")
+            affichage = sc.gethostbyaddr(submit)
+            print(f"démarrage du scan d'officience : {affichage}")
+            sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
+            sock.connect_ex((submit, port))
+            sc.setdefaulttimeout(0)
+            windows_OS = ["LAPTOP-"]
+            mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-", "SLPAR-"]
+            android_OS = ["Android.", "Android-"]
+            linux_OS = ["LINUX"]
 
-        # partie vérification windows
-        for x in windows_OS[0::]:
-            try:
-                sock.connect_ex((submit, port))
+            # partie vérification windows
+            for x in windows_OS[0::]:
                 if x in affichage[0]:
                     print(win)
                     sock.close()
-            except sc.herror:
-                print("error")
-            finally:
-                sock.close()
-                exit()
         
-        # vérification pour mac
-        for z in mac_OS[0::]:
-            try:
-                sock.connect_ex((submit, port))
+            # vérification pour mac
+            for z in mac_OS[0::]:
                 if z in affichage[0]:
                     print(mac)
                     sock.close()
-            except sc.herror:
-                print("error")
-            finally:
-                sock.close()
-                exit()
 
-        # vérification pour linux
-        for s in linux_OS[0::]:
-            try:
-                sock.connect_ex((submit, port))
+            # vérification pour linux
+            for s in linux_OS[0::]:
                 if s in affichage[0]:
                     print(linux)
                     sock.close()
-            except sc.herror:
-                print("erreur")
-            finally:
-                sock.close()
-                exit()
 
-        # vérification pour android
-        for l in android_OS[0::]:
-            try:
-                sock.connect_ex((submit, port))
+            # vérification pour android
+            for l in android_OS[0::]:
                 if l in affichage[0]:
                     print(android)
                     sock.close()
-            except sc.herror:
-                print("error")
-            finally:
-                sock.close()
-                exit()
 
-'''       
+        except sc.herror as sock:
+            print("error")
+            exit()
+
+'''    
 def scan2(): 
     # partie détection 2 si 1 ne marche pas
-    scan_TCP = sr1(IP(dst="10.0.0.35")/TCP(dport=[135], flags="S"))
+    scan_TCP = sr1(IP(dst="10.0.0.61")/TCP(dport=[135], flags="S"))
     scan_UDP = sr1(IP(dst="10.0.0.35")/UDP(dport=[67]))
     scan_ICMP = sr1(IP(dst="10.0.0.35")/ICMP())
     ttl_TCP = scan_TCP.getlayer(IP).ttl
@@ -94,6 +74,7 @@ def scan2():
     if ttl_TCP == 64 or ttl_UDP == 64 or ttl_ICMP == 64:
         print(mac)
 '''
+
 # partie accélération de scan
 for i in range(1):
     thread = threading.Thread(target=scan).start()
