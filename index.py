@@ -3,7 +3,6 @@ import threading
 from colorama import Fore
 from scapy.all import *
 from scapy.layers.inet import *
-import ipaddress
 
 
 # variables d'affichage OS
@@ -15,47 +14,47 @@ android = Fore.GREEN + "l'utilisateur utilise android"
 # partie scan
 def scan():
         # partie détection 1
-        try:
-            port = 135
-            ipaddress.ip_network("10.0.0.1/24")
-            submit = ("10.0.0.69")
-            affichage = sc.gethostbyaddr(submit)
-            print(f"démarrage du scan d'officience : {affichage}")
-            sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
-            sock.connect_ex((submit, port))
-            sc.setdefaulttimeout(0)
-            windows_OS = ["LAPTOP-"]
-            mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-", "SLPAR-"]
-            android_OS = ["Android.", "Android-"]
-            linux_OS = ["LINUX"]
+                try:
+                    for i in range(1-254):
+                        submit = "10.0.0.1." + str(i)
+                        affichage = sc.gethostbyaddr(submit)
+                        print(f"démarrage du scan d'officience : {affichage}")
+                        port = 135
+                        sock = sc.socket(sc.AF_INET, sc.SOCK_STREAM)
+                        sock.connect_ex((submit, port))
+                        sc.setdefaulttimeout(0)
+                        windows_OS = ["LAPTOP-"]
+                        mac_OS = ["MACBOOKAIR-", "MacBook-", "MACBOOKPRO-", "SLPAR-"]
+                        android_OS = ["Android.", "Android-"]
+                        linux_OS = ["LINUX"]
 
-            # partie vérification windows
-            for x in windows_OS[0::]:
-                if x in affichage[0]:
-                    print(win)
-                    sock.close()
+                        # partie vérification windows
+                        for x in windows_OS[0::]:
+                            if x in affichage[0]:
+                                print(win)
+                                sock.close()
         
-            # vérification pour mac
-            for z in mac_OS[0::]:
-                if z in affichage[0]:
-                    print(mac)
-                    sock.close()
+                        # vérification pour mac
+                        for z in mac_OS[0::]:
+                            if z in affichage[0]:
+                                print(mac)
+                                sock.close()
 
-            # vérification pour linux
-            for s in linux_OS[0::]:
-                if s in affichage[0]:
-                    print(linux)
-                    sock.close()
+                        # vérification pour linux
+                        for s in linux_OS[0::]:
+                            if s in affichage[0]:
+                                print(linux)
+                                sock.close()
 
-            # vérification pour android
-            for l in android_OS[0::]:
-                if l in affichage[0]:
-                    print(android)
-                    sock.close()
+                        # vérification pour android
+                        for l in android_OS[0::]:
+                            if l in affichage[0]:
+                                print(android)
+                                sock.close()
 
-        except sc.herror as sock:
-            print("error")
-            exit()
+                except sc.herror as sock:
+                    print("error")
+                    return scan
 
 '''    
 def scan2(): 
